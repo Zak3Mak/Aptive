@@ -150,9 +150,18 @@ function dniWriteData() {
 function isBot() {
     return /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
   }
+// Not supposed to deploy pages 
+function isValidURL() {
+    const url = window.location.href;
+    if (url.includes("serviceability") || url.includes("confirmation") || url.includes("my.goaptive.com")) {
+        return false;}
+    return true;
+}
 
 // Main execution
+window.onload = function() {
 (function() {
+    if (isValidURL()){
     dniWriteData();
     var urlData = decodeURI(window.location.href);
     var url = urlData.split('?')[0];
@@ -174,5 +183,5 @@ function isBot() {
       }
       dniUpdatePhoneNumbers(phoneNumber);
       dniStoreSource();
-    });}
-  })();
+    });}}
+  })();}
